@@ -24,12 +24,9 @@
   <button class="btn btn-default" ng-click="add()">+</button>
   <accordion close-others="oneAtATime">
     <accordion-group heading="{{task.Title}}" ng-repeat="task in tasks" is-open="task.isOpen">
-      <div ng-if="task.Description.length == 0">
-        Click to add details
-      </div>
-      <div ng-if="task.Description.length > 0">
-        {{task.Description}}
-      </div>
+      <a href="#" editable-text="task.Description">
+        {{task.Description || "Click to add details"}}
+      </a>
     </accordion-group>
   </accordion>
 </div>

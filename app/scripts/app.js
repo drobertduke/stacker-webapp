@@ -8,7 +8,8 @@ angular
     'ngRoute',
     'restangular',
     'ui.bootstrap',
-    'ui.router'
+    'ui.router',
+    'xeditable'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -19,4 +20,7 @@ angular
         controller: 'MainCtrl'
     });
 
-  }]);
+  }])
+  .run(function(editableOptions) {
+    editableOptions.theme = 'bs3';
+  });
