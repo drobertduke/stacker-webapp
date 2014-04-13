@@ -2,25 +2,36 @@
   <ul class="nav nav-pills pull-right">
     <li>
         <script type="text/ng-template" id="mySigninContent.html">
-          <form class="form-signin">
-            <h2 class="form-signin-heading">Sign in</h2>
-            <input type="text" class="input-block-level" placeholder="Email address">
-            <input type="password" class="input-block-level" placeholder="Password">
-            <label class="checkbox"><input type="checkbox" value="remember-me"> Remember me </label>
-            <button class="btn btn-large btn-primary" type="submit">Sign in</button>
-          </form>
+            <form class="form-signin">
+              <h2 class="form-signin-heading">Please sign in</h2>
+              <input type="text" class="input-block-level" placeholder="Email address">
+              <input type="password" class="input-block-level" placeholder="Password">
+              <label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember me
+              </label>
+              <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+              <button class="btn btn-large btn-primary" type="submit">Register</button>
+            </form>
         </script>
-        <button class="btn btn-default" ng-click="open()">Sign in</button>
+        <button class="btn btn-default" ng-click="openSignin()">Sign in</button>
      </li>
   </ul>
   <h3 class="text-muted">stacker_webapp</h3>
 </div>
 
 
-<div>
-  <div ng-repeat="user in users">
-    name : {{user.FullName}}
-  </div>
+<div ng-controller="TaskListCtrl">
+  <button class="btn btn-default" ng-click="add()">+</button>
+  <accordion close-others="oneAtATime">
+    <accordion-group heading="{{task.Title}}" ng-repeat="task in tasks" is-open="task.isOpen">
+      <div ng-if="task.Description.length == 0">
+        Click to add details
+      </div>
+      <div ng-if="task.Description.length > 0">
+        {{task.Description}}
+      </div>
+    </accordion-group>
+  </accordion>
 </div>
 
 <div>
