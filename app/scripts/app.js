@@ -7,6 +7,8 @@ angular
     'ngSanitize',
     'ngRoute',
     'restangular',
+    'ui.bootstrap',
+    'ui.router'
   ])
   .config(function ($routeProvider) {
     $routeProvider
