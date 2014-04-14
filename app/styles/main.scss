@@ -98,6 +98,20 @@ body {
   width: 300px;
 }
 
+.tasklist-window {
+  .panel-title, .accordion-toggle {
+    display: block;
+  }
+  .panel-heading {
+    cursor: pointer;
+    margin: 0px 0px;
+    padding: 0px 0px;
+  }
+  .accordion-toggle {
+    padding: 10px 15px;
+  }
+}
+
 .form-signin {
   max-width: 300px;
   padding: 19px 29px 29px;
@@ -122,3 +136,4 @@ body {
   margin-bottom: 15px;
   padding: 7px 9px;
 }
+

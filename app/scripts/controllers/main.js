@@ -2,11 +2,7 @@
 
 angular.module('stackerWebappApp')
   .controller('MainCtrl', function ($scope, Restangular, $modal) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    $scope.tasklistWindowClass = "tasklist-window";
     var SigninInstanceCtrl = function ($scope, $modalInstance) {
       $scope.ok = function () {
         $modalInstance.close();

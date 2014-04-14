@@ -23,10 +23,13 @@
 <div ng-controller="TaskListCtrl">
   <button class="btn btn-default" ng-click="add()">+</button>
   <accordion close-others="oneAtATime">
-    <accordion-group heading="{{task.Title}}" ng-repeat="task in tasks" is-open="task.isOpen">
-      <a href="#" editable-text="task.Description">
-        {{task.Description || "Click to add details"}}
-      </a>
+    <accordion-group ng-class="tasklistWindowClass" heading="{{task.Title}}" ng-repeat="task in tasks" is-open="task.isOpen">
+      <accordion-heading>
+        <a href="#" editable-text="task.Title">{{task.Title}}</a>
+      </accordion-heading>
+        <a href="#" editable-textarea="task.Description" e-placeholder="Enter description">
+          {{task.Description || "Click to add details"}}
+        </a>
     </accordion-group>
   </accordion>
 </div>
