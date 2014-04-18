@@ -25,9 +25,9 @@
   <accordion close-others="oneAtATime">
     <accordion-group ng-class="tasklistWindowClass" heading="{{task.Title}}" ng-repeat="task in tasks" is-open="task.isOpen">
       <accordion-heading>
-        <a href="#" editable-text="task.Title">{{task.Title}}</a>
+        <a href="#" editable-text="task.Title" onaftersave="saveTitle($data, task.Id)">{{task.Title}}</a>
       </accordion-heading>
-        <a href="#" editable-textarea="task.Description" e-placeholder="Enter description">
+        <a href="#" editable-textarea="task.Description" e-placeholder="Enter description" onaftersave="saveDescription($data, task.Id)">
           {{task.Description || "Click to add details"}}
         </a>
     </accordion-group>
