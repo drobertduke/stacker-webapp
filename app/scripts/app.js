@@ -1,6 +1,6 @@
 'use strict';
 
-angular
+var app = angular
   .module('stackerWebappApp', [
     'ngCookies',
     'ngResource',
@@ -9,7 +9,8 @@ angular
     'restangular',
     'ui.bootstrap',
     'ui.router',
-    'xeditable'
+    'xeditable',
+    'ui.sortable'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -25,3 +26,6 @@ angular
     editableOptions.theme = 'bs3';
   });
 
+app.controller('sortableController', function($scope) {
+
+})

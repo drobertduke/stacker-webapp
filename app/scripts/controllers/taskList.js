@@ -2,6 +2,24 @@
 function TaskListCtrl($scope, Restangular, $cookies) {
   $scope.oneAtATime = true;
 
+  $scope.sortingLog = [];
+  var tmpList = $scope.tasks;
+
+  $scope.sortableOptions = {
+    update: function(e, ui) {
+    },
+    stop: function(e, ui) {
+      for (var i = 0; i < $scope.tasks.length; i++) {
+        var task = $scope.tasks[i];
+        if (task.Priority != i) {
+          console.log(i);
+          task.Priority = i;
+          $scope.savePriority(i, task.Id);
+        }
+      }
+    }
+  };
+
   var baseTasks = Restangular.all('tasks');
   $scope.add = function () {
     $scope.tasks.unshift(
@@ -19,6 +37,10 @@ function TaskListCtrl($scope, Restangular, $cookies) {
 
   $scope.saveTitle = function (data, id) {
     Restangular.one('tasks', id).put({Title: data});
+  };
+
+  $scope.savePriority = function (data, id) {
+    Restangular.one('tasks', id).put({Priority: data});
   };
 
   $scope.saveDescription = function (data, id) {

@@ -23,16 +23,27 @@
 <div ng-controller="TaskListCtrl">
   <button class="btn btn-default" ng-click="add()">+</button>
   <accordion close-others="oneAtATime">
-    <accordion-group ng-class="tasklistWindowClass" heading="{{task.Title}}" ng-repeat="task in tasks" is-open="task.isOpen">
+    <ul ui-sortable="sortableOptions" ng-model="tasks">
+      <accordion-group ng-class="tasklistWindowClass" heading="{{task.Title}}" ng-repeat="task in tasks | orderBy:'Priority'" is-open="task.isOpen" >
       <accordion-heading>
         <a href="#" editable-text="task.Title" onaftersave="saveTitle($data, task.Id)">{{task.Title}}</a>
       </accordion-heading>
         <a href="#" editable-textarea="task.Description" e-placeholder="Enter description" onaftersave="saveDescription($data, task.Id)">
           {{task.Description || "Click to add details"}}
         </a>
-    </accordion-group>
+      </accordion-group>
+    </ul>
   </accordion>
+  <div class="floatleft" style="margin-left: 20px;">
+    <ul class="list logList">
+      <li ng-repeat="entry in sortingLog track by $index" class="logItem">
+        {{entry}}
+      </li>
+    </ul>
+  </div>
 </div>
+
+
 
 <div>
   <div ng-repeat="task in tasks">
