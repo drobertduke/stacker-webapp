@@ -2,9 +2,6 @@
 function TaskListCtrl($scope, Restangular, $cookies) {
   $scope.oneAtATime = true;
 
-  $scope.sortingLog = [];
-  var tmpList = $scope.tasks;
-
   $scope.sortableOptions = {
     update: function(e, ui) {
     },
@@ -26,7 +23,9 @@ function TaskListCtrl($scope, Restangular, $cookies) {
     }
   });
 
+  Restangular.setBaseUrl('http://localhost:8081');
   var baseTasks = Restangular.all('tasks');
+
   $scope.add = function () {
     $scope.tasks.unshift(
       {
@@ -53,13 +52,27 @@ function TaskListCtrl($scope, Restangular, $cookies) {
     Restangular.one('tasks', id).put({Description: data});
   };
 
-  Restangular.setBaseUrl('http://localhost:8081');
+  $scope.getFriends = function() {
+    Restangular.all('users').getList().then( function(users) {
+      $scope.friends = users;
+      $scope.friends.forEach(function(friend) {
+        Restangular.one('users', friend.Id).getList('tasks').then(function(tasks) {
+          friend.tasks = tasks
+          console.log('FRIEND HAS TASKS');
+          console.log(tasks);
+        });
+      });
+    });
+  };
+
+
   var userId = $cookies.userId;
   if (typeof userId === 'undefined') {
     var user = {FullName: 'New User'};
     Restangular.all('users').post(user).then(function(user) {
       $scope.loggedInUser = user;
       $cookies.userId = $scope.loggedInUser.Id;
+      $scope.getFriends();
       Restangular.one('users', $scope.loggedInUser.Id).getList('tasks').then(function(tasks){
         $scope.tasks = tasks;
       });
@@ -67,6 +80,7 @@ function TaskListCtrl($scope, Restangular, $cookies) {
   } else {
     Restangular.one('users', userId).get().then(function(user) {
       $scope.loggedInUser = user;
+      $scope.getFriends();
       Restangular.one('users', $scope.loggedInUser.Id).getList('tasks').then(function(tasks){
         $scope.tasks = tasks;
       });
@@ -75,6 +89,7 @@ function TaskListCtrl($scope, Restangular, $cookies) {
       Restangular.all('users').post(user).then(function(user) {
         $scope.loggedInUser = user;
         $cookies.userId = $scope.loggedInUser.Id;
+        $scope.getFriends();
         Restangular.one('users', $scope.loggedInUser.Id).getList('tasks').then(function(tasks){
           $scope.tasks = tasks;
         });
