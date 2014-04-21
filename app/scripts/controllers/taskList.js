@@ -9,16 +9,22 @@ function TaskListCtrl($scope, Restangular, $cookies) {
     update: function(e, ui) {
     },
     stop: function(e, ui) {
-      for (var i = 0; i < $scope.tasks.length; i++) {
-        var task = $scope.tasks[i];
-        if (task.Priority != i) {
-          console.log(i);
-          task.Priority = i;
-          $scope.savePriority(i, task.Id);
-        }
-      }
     }
   };
+
+  $scope.$watchCollection('tasks', function() {
+    if (!$scope.hasOwnProperty("tasks")) {
+      return;
+    }
+
+    for (var i = 0; i < $scope.tasks.length; i++) {
+      var task = $scope.tasks[i];
+      if (task.Priority != i) {
+        task.Priority = i;
+        $scope.savePriority(i, task.Id);
+      }
+    }
+  });
 
   var baseTasks = Restangular.all('tasks');
   $scope.add = function () {
